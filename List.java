@@ -2,6 +2,10 @@ package main;
 
 import java.util.Comparator;
 
+/**
+ * @author Philipp Raevskiy
+ * My realization of the List interface
+ */
 public interface List<T> {
     void add(T element);
     void add(int index, T element);
