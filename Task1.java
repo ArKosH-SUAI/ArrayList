@@ -1,14 +1,15 @@
+package main;
+
+import java.util.Random;
+
 public class Task1 {
     public static void main (String[] args) {
-        Array_List<Integer> list_int = new Array_List<>();
-        list_int.add(1);
-        list_int.add(2);
-        list_int.add(4);
-        list_int.add(5);
+        List<Integer> list_int = new Array_List<>();
+        Random r = new Random();
+        for (int i = 0; i <= 20; i++)
+            list_int.add(r.nextInt(20));
         System.out.println(list_int);
-        list_int.add(2, 3);
-        System.out.println(list_int);
-        list_int.delete(3);
+        list_int.sort(0, list_int.get_size() - 1, Integer::compareTo);
         System.out.println(list_int);
 
         Array_List<String> list_string = new Array_List<>();
@@ -17,9 +18,7 @@ public class Task1 {
         list_string.add("Vlad");
         list_string.add("Katy");
         System.out.println(list_string);
-        list_string.add(4, "Ivan");
-        System.out.println(list_string);
-        list_string.delete(1);
+        list_string.sort(0, list_string.get_size() - 1, String::compareTo);
         System.out.println(list_string);
     }
 }
