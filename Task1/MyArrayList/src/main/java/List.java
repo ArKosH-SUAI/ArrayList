@@ -1,5 +1,3 @@
-import java.util.Comparator;
-
 /**
  * @author Philipp Raevskiy
  * My realization of the List interface
