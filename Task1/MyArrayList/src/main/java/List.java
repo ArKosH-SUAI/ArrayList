@@ -13,5 +13,4 @@ public interface List<T> {
     int get_capacity();
     void rewrite(int new_capacity);
     String toString();
-    void sort (int left_position, int right_position, Comparator<T> comparator);
 }

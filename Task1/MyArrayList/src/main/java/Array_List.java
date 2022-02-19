@@ -1,5 +1,3 @@
-import java.util.Comparator;
-
 /**
  * @author Philipp Raevskiy
  * This is my ArryaList implementation
@@ -55,7 +53,7 @@ public class Array_List<T> implements List<T>{
      * @param index the position from which the element should be removed
      */
     public void delete(int index) {
-        if (index < 0 || (Integer) index == null)
+        if (index < 0)
             throw new ArrayIndexOutOfBoundsException("Index isn't correct");
         if (iter < index)
             throw new ArrayIndexOutOfBoundsException("Element at given index doesn't exist");
@@ -70,6 +68,10 @@ public class Array_List<T> implements List<T>{
      * @param index the position from which to return the value of the element
      */
     public T get(int index) {
+        if (index < 0)
+            throw new ArrayIndexOutOfBoundsException("Index isn't correct");
+        if (iter < index)
+            throw new ArrayIndexOutOfBoundsException("Element at given index doesn't exist");
         return array[index];
     }
 
@@ -105,40 +107,8 @@ public class Array_List<T> implements List<T>{
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < iter; i++) {
             sb.append(array[i]);
-            sb.append(' ');
+            if (i + 1 < iter) sb.append(' ');
         }
         return sb.toString();
-    }
-
-
-    /**
-     * The method realize a quick sorting algorithm of the list
-     * @param left_position left position of the sorting border
-     * @param right_position right position of the sorting border
-     * @param comparator the rule by which sorting will be performed
-     */
-    public void sort (int left_position, int right_position, Comparator<T> comparator) {
-        if (this.get_size() == 0) return;
-        if (left_position >= right_position) return;
-        int middle_position = left_position + (right_position - left_position) / 2;
-        T pivot = this.get(middle_position);
-        int i = left_position, j = right_position;
-        while (i <= j) {
-            while (comparator.compare(pivot ,this.get(i)) > 0)
-                i++;
-            while (comparator.compare(pivot ,this.get(j)) < 0)
-                j--;
-            if (i <= j) {
-                T tmp = this.get(i);
-                array[i] = array[j];
-                array[j] = tmp;
-                i++;
-                j--;
-            }
-        }
-        if (left_position < j)
-            sort(left_position, j, comparator);
-        if (right_position > i)
-            sort(i, right_position, comparator);
     }
 }
