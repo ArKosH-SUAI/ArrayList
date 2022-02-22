@@ -136,12 +136,12 @@ class Array_ListTest {
         //
         //When increase the capacity of the List
         //
-        list.rewrite(list.get_capacity() + 5);
+        list.rewrite();
 
         //
-        //Then get the capacity is equal to 15
+        //Then get the capacity is equal to 10
         //
-        assertEquals(list.get_capacity(), 15);
+        assertEquals(list.get_capacity(), 10);
     }
 
     @org.junit.jupiter.api.Test

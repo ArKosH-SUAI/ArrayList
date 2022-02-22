@@ -9,6 +9,6 @@ public interface List<T> {
     T get(int index);
     int get_size();
     int get_capacity();
-    void rewrite(int new_capacity);
+    void rewrite();
     String toString();
 }

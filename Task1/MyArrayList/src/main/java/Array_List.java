@@ -4,14 +4,15 @@
  */
 public class Array_List<T> implements List<T>{
     private int capacity = 10;
-    private T[] array;
+    private Object[] array;
     private int iter = 0;
-
+    private final Object[] empty_array = {};
+    private final Object[] def_empty_array = {};
     /**
      * Empty ArrayList constructor
      */
     public Array_List() {
-        array = (T[]) new Object[capacity];
+        array = def_empty_array;
     }
 
     /**
@@ -19,8 +20,15 @@ public class Array_List<T> implements List<T>{
      * @param size ArrayList size
      */
     public Array_List(int size) {
-        capacity = size;
-        array = (T[]) new Object[size];
+        if (size > 0) {
+            capacity = size;
+            array = new Object[size];
+        } else if (size == 0) {
+            capacity = 0;
+            array = empty_array;
+        } else {
+            throw new IllegalArgumentException("Illegal Capacity: "+ size);
+        }
     }
 
     /**
@@ -28,9 +36,10 @@ public class Array_List<T> implements List<T>{
      * @param element the element that needs to be added
      */
     public void add(T element) {
-        if (iter == array.length - 1)
-            rewrite((capacity * 3) / 2 + 1);
-        array[iter++] = element;
+        if (iter == array.length)
+            rewrite();
+        array[iter] = element;
+        iter += 1;
     }
 
     /**
@@ -41,11 +50,11 @@ public class Array_List<T> implements List<T>{
     public void add(int index, T element) {
         if (index < 0 || index > iter)
             throw new ArrayIndexOutOfBoundsException("Index isn't correct");
-        if (iter + 1 == array.length - 1)
-            rewrite((capacity * 3) / 2 + 1);
+        if (iter == array.length)
+            rewrite();
         System.arraycopy(array, index, array, index + 1, iter - index);
         array[index] = element;
-        iter++;
+        iter += 1;
     }
 
     /**
@@ -72,7 +81,7 @@ public class Array_List<T> implements List<T>{
             throw new ArrayIndexOutOfBoundsException("Index isn't correct");
         if (iter < index)
             throw new ArrayIndexOutOfBoundsException("Element at given index doesn't exist");
-        return array[index];
+        return (T)array[index];
     }
 
     /**
@@ -91,13 +100,19 @@ public class Array_List<T> implements List<T>{
 
     /**
      * A method that increases the capacity of the list
-     * @param new_capacity new list capacity
      */
-    public void rewrite(int new_capacity) {
-        capacity = new_capacity;
-        T[] new_array =(T[]) new Object[new_capacity];
-        System.arraycopy(array, 0, new_array, 0, iter);
-        array = new_array;
+    public void rewrite() {
+        if (array == def_empty_array) {
+            array = new Object[capacity];
+        } else if (array == empty_array) {
+            capacity += 1;
+            array = new Object[capacity];
+        } else {
+            capacity = (capacity * 3) / 2 + 1;
+            T[] new_array =(T[]) new Object[capacity];
+            System.arraycopy(array, 0, new_array, 0, iter);
+            array = new_array;
+        }
     }
 
     /**
